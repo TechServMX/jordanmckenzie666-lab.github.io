@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechServ MX — Servicios & Planes</title>
+<meta name="description" content="Soluciones tecnológicas en Cadereyta y Juárez NL. Cómputo, CCTV, redes y audio. Facturación electrónica.">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Exo+2:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   VARIABLES & RESET
+══════════════════════════════════════════ */
+:root {
+  --bg:       #050810;
+  --bg2:      #080c18;
+  --bg3:      #0d1220;
+  --cyan:     #00f5ff;
+  --green:    #39ff14;
+  --violet:   #bf5fff;
+  --orange:   #ff6b00;
+  --gold:     #ffd700;
+  --gold2:    #ffaa00;
+  --text:     #ddeeff;
+  --muted:    #506070;
+  --border:   rgba(0,245,255,0.10);
+  --nav-h:    64px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Exo 2',sans-serif;
+  overflow-x:hidden;
+}
+
+/* scanlines + grid */
+body::after{
+  content:'';position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,
+    rgba(0,245,255,0.009) 3px,rgba(0,245,255,0.009) 4px);
+  pointer-events:none;z-index:1000;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(0,245,255,0.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,245,255,0.02) 1px,transparent 1px);
+  background-size:50px 50px;
+  pointer-events:none;z-index:0;
+}
+
+/* ══════════════════════════════════════════
+   STICKY NAV
+══════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  height:var(--nav-h);
+  background:rgba(5,8,16,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(0,245,255,0.08);
+  display:flex;align-items:center;
+  justify-content:space-between;
+  padding:0 5vw;
+  z-index:500;
+}
+.nav-logo{
+  font-family:'Orbitron',monospace;
+  font-size:16px;font-weight:800;letter-spacing:0.08em;
+  text-decoration:none;
+}
+.nav-logo .nc{color:var(--cyan);text-shadow:0 0 14px rgba(0,245,255,0.5);}
+.nav-logo .nt{color:var(--text);}
+
+.nav-links{
+  display:flex;align-items:center;gap:4px;
+}
+.nav-link{
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  padding:7px 14px;
+  border:1px solid transparent;
+  transition:color .25s,border-color .25s;
+}
+.nav-link:hover,.nav-link.active{
+  color:var(--cyan);
+  border-color:rgba(0,245,255,0.2);
+  background:rgba(0,245,255,0.04);
+}
+
+/* hamburger */
+.nav-burger{
+  display:none;
+  flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:4px;
+}
+.nav-burger span{
+  display:block;width:22px;height:2px;
+  background:var(--muted);transition:.25s;
+}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.nav-mobile{
+  display:none;
+  position:fixed;top:var(--nav-h);left:0;right:0;
+  background:rgba(5,8,16,0.97);
+  border-bottom:1px solid rgba(0,245,255,0.08);
+  flex-direction:column;
+  z-index:499;
+}
+.nav-mobile.open{display:flex;}
+.nav-mobile .nav-link{padding:14px 5vw;border:none;border-bottom:1px solid rgba(255,255,255,0.03);}
+
+@media(max-width:640px){
+  .nav-links{display:none;}
+  .nav-burger{display:flex;}
+}
+
+/* ══════════════════════════════════════════
+   SECTIONS BASE
+══════════════════════════════════════════ */
+.page-section{
+  position:relative;z-index:1;
+  padding:100px 6vw 80px;
+}
+.page-section:first-of-type{padding-top:calc(var(--nav-h) + 60px);}
+
+.sec-eyebrow{
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px;letter-spacing:0.22em;
+  color:var(--green);text-transform:uppercase;margin-bottom:10px;
+}
+.sec-title{
+  font-family:'Orbitron',monospace;
+  font-size:clamp(26px,4vw,52px);font-weight:800;
+  letter-spacing:0.03em;line-height:1;margin-bottom:14px;
+}
+.sec-sub{
+  font-size:14px;font-weight:300;color:var(--muted);
+  max-width:560px;line-height:1.7;margin-bottom:48px;
+}
+
+/* orb helper */
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;}
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+#inicio{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  overflow:hidden;
+}
+.hero-orb-a{width:600px;height:600px;top:-180px;left:-120px;background:radial-gradient(circle,rgba(0,245,255,0.11),transparent 70%);}
+.hero-orb-b{width:420px;height:420px;bottom:-140px;right:-60px;background:radial-gradient(circle,rgba(57,255,20,0.07),transparent 70%);}
+.hero-orb-c{width:320px;height:320px;top:30%;right:8%;background:radial-gradient(circle,rgba(191,95,255,0.06),transparent 70%);}
+
+.status-bar{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;letter-spacing:0.14em;color:var(--cyan);
+  margin-bottom:32px;width:fit-content;
+  animation:fadeUp .7s ease both;
+}
+.s-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 10px var(--green),0 0 20px var(--green);
+  animation:blink 2s infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+.hero-logo{
+  font-family:'Orbitron',monospace;font-weight:800;
+  font-size:clamp(52px,11vw,130px);
+  line-height:.88;
+  animation:fadeUp .8s ease .1s both;
+}
+.hl-c{color:var(--cyan);text-shadow:0 0 32px rgba(0,245,255,.5),0 0 80px rgba(0,245,255,.18);}
+.hl-w{color:var(--text);}
+.hl-mx{color:var(--green);font-size:.42em;vertical-align:middle;text-shadow:0 0 20px rgba(57,255,20,.4);}
+
+.hero-tag{
+  font-family:'Share Tech Mono',monospace;
+  font-size:13px;letter-spacing:.18em;color:var(--muted);
+  margin-top:18px;text-transform:uppercase;
+  animation:fadeUp .8s ease .2s both;
+}
+.hero-tag em{color:var(--violet);font-style:normal;}
+
+.hero-line{width:80px;height:2px;background:linear-gradient(90deg,var(--cyan),transparent);margin:28px 0;animation:fadeUp .8s ease .3s both;}
+
+.hero-desc{
+  font-size:15px;font-weight:300;color:#7a9bb8;
+  max-width:500px;line-height:1.75;
+  animation:fadeUp .8s ease .35s both;
+}
+.hero-desc strong{color:var(--cyan);font-weight:500;}
+
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;animation:fadeUp .8s ease .45s both;}
+.chip{
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px;letter-spacing:.12em;
+  padding:5px 14px;
+  border:1px solid rgba(0,245,255,.18);
+  color:var(--muted);
+  background:rgba(0,245,255,.035);
+  clip-path:polygon(7px 0%,100% 0%,calc(100% - 7px) 100%,0% 100%);
+}
+
+.hero-ctas{
+  display:flex;flex-wrap:wrap;gap:12px;margin-top:36px;
+  animation:fadeUp .8s ease .55s both;
+}
+.btn-primary{
+  font-family:'Orbitron',monospace;font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
+  padding:13px 28px;
+  background:rgba(0,245,255,.12);
+  border:1px solid rgba(0,245,255,.35);
+  color:var(--cyan);
+  transition:background .25s,transform .2s;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+}
+.btn-primary:hover{background:rgba(0,245,255,.2);transform:translateY(-2px);}
+.btn-secondary{
+  font-family:'Orbitron',monospace;font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
+  padding:13px 28px;
+  border:1px solid rgba(255,255,255,.08);
+  color:var(--muted);
+  transition:border-color .25s,color .25s;
+}
+.btn-secondary:hover{border-color:rgba(255,255,255,.18);color:var(--text);}
+
+.hero-location{
+  position:absolute;bottom:44px;right:6vw;
+  text-align:right;
+  animation:fadeUp 1s ease .65s both;
+}
+.hl-lbl{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:5px;}
+.hl-city{font-family:'Orbitron',monospace;font-size:16px;font-weight:700;color:var(--cyan);text-shadow:0 0 18px rgba(0,245,255,.4);}
+.hl-state{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;margin-top:2px;}
+
+/* ══════════════════════════════════════════
+   SERVICES
+══════════════════════════════════════════ */
+#servicios{background:var(--bg2);border-top:1px solid rgba(0,245,255,.05);}
+
+.area-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid rgba(0,245,255,.07);margin-bottom:3px;
+}
+.area-cell{
+  padding:18px 20px;border-right:1px solid rgba(0,245,255,.05);
+  position:relative;overflow:hidden;
+}
+.area-cell:last-child{border-right:none;}
+.area-cell::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;}
+.ac1::before{background:var(--cyan);box-shadow:0 0 10px var(--cyan);}
+.ac2::before{background:var(--green);box-shadow:0 0 10px var(--green);}
+.ac3::before{background:var(--violet);box-shadow:0 0 10px var(--violet);}
+.ac4::before{background:var(--orange);box-shadow:0 0 10px var(--orange);}
+.area-num{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--muted);margin-bottom:5px;}
+.area-name{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;letter-spacing:.05em;}
+.ac1 .area-name{color:var(--cyan);}
+.ac2 .area-name{color:var(--green);}
+.ac3 .area-name{color:var(--violet);}
+.ac4 .area-name{color:var(--orange);}
+
+.srv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:3px;}
+.srv-card{
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.04);
+  padding:34px 28px;position:relative;overflow:hidden;
+  transition:background .3s,border-color .3s,transform .3s;
+}
+.srv-card:hover{background:rgba(0,245,255,.03);border-color:var(--border);transform:translateY(-3px);}
+.srv-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .4s ease;}
+.srv-card:hover::before{transform:scaleX(1);}
+.srv-card.sc{color:var(--cyan);} .sc::before{background:var(--cyan);box-shadow:0 0 10px var(--cyan);}
+.srv-card.sg{} .sg::before{background:var(--green);box-shadow:0 0 10px var(--green);}
+.srv-card.sv{} .sv::before{background:var(--violet);box-shadow:0 0 10px var(--violet);}
+.srv-card.so{} .so::before{background:var(--orange);box-shadow:0 0 10px var(--orange);}
+.sn{position:absolute;top:18px;right:22px;font-family:'Orbitron',monospace;font-size:40px;font-weight:800;color:rgba(255,255,255,.03);line-height:1;}
+.si{font-size:28px;margin-bottom:16px;display:block;}
+.sa{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:7px;}
+.sc .sa,.sc .si{color:var(--cyan);}
+.sg .sa{color:var(--green);}
+.sv .sa{color:var(--violet);}
+.so .sa{color:var(--orange);}
+.st{font-family:'Orbitron',monospace;font-size:16px;font-weight:700;letter-spacing:.04em;margin-bottom:12px;line-height:1.2;color:var(--text);}
+.sd{font-size:13px;font-weight:300;color:var(--muted);line-height:1.65;margin-bottom:14px;}
+.sl{display:flex;flex-direction:column;gap:6px;}
+.sli{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#506070;line-height:1.5;}
+.sli::before{content:'›';font-size:15px;line-height:1;flex-shrink:0;}
+.sc .sli::before{color:var(--cyan);}
+.sg .sli::before{color:var(--green);}
+.sv .sli::before{color:var(--violet);}
+.so .sli::before{color:var(--orange);}
+
+/* ══════════════════════════════════════════
+   PLANES
+══════════════════════════════════════════ */
+#planes{border-top:1px solid rgba(0,245,255,.05);}
+
+.notice-bar{
+  background:rgba(0,245,255,.04);
+  border:1px solid rgba(0,245,255,.08);
+  padding:14px 20px;
+  display:flex;align-items:center;gap:12px;
+  font-size:12.5px;color:#7a9bb8;
+  margin-bottom:48px;
+}
+.notice-bar strong{color:var(--cyan);}
+
+.plans-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:3px;align-items:start;
+}
+.plan{
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.05);
+  position:relative;overflow:hidden;
+  transition:transform .3s;
+}
+.plan:hover{transform:translateY(-5px);}
+.plan::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;}
+.pb::before{background:var(--cyan);box-shadow:0 0 16px var(--cyan);}
+.pp::before{background:var(--violet);box-shadow:0 0 16px var(--violet);}
+.px::before{background:linear-gradient(90deg,var(--gold),var(--gold2));box-shadow:0 0 18px rgba(255,215,0,.5);}
+
+.plan-badge{
+  position:absolute;top:14px;right:14px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:8px;letter-spacing:.16em;text-transform:uppercase;
+  padding:4px 9px;
+}
+.badge-pop{background:rgba(191,95,255,.14);border:1px solid rgba(191,95,255,.3);color:var(--violet);}
+.badge-prem{background:rgba(255,215,0,.11);border:1px solid rgba(255,215,0,.3);color:var(--gold);}
+
+.plan-head{padding:30px 26px 22px;border-bottom:1px solid rgba(255,255,255,.04);}
+.plan-tier{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:8px;}
+.pb .plan-tier{color:var(--cyan);} .pp .plan-tier{color:var(--violet);} .px .plan-tier{color:var(--gold);}
+.plan-name{font-family:'Orbitron',monospace;font-size:20px;font-weight:800;letter-spacing:.04em;margin-bottom:6px;}
+.pb .plan-name{color:var(--text);} .pp .plan-name{color:var(--text);}
+.px .plan-name{color:var(--gold);text-shadow:0 0 18px rgba(255,215,0,.3);}
+.plan-tldr{font-size:12px;font-weight:300;color:var(--muted);line-height:1.5;margin-bottom:18px;}
+.price-row{display:flex;align-items:flex-end;gap:5px;margin-bottom:5px;}
+.p-cur{font-family:'Orbitron',monospace;font-size:13px;font-weight:600;color:var(--muted);padding-bottom:5px;}
+.p-amt{font-family:'Orbitron',monospace;font-size:clamp(34px,4vw,50px);font-weight:800;line-height:1;}
+.pb .p-amt{color:var(--cyan);text-shadow:0 0 18px rgba(0,245,255,.35);}
+.pp .p-amt{color:var(--violet);text-shadow:0 0 18px rgba(191,95,255,.35);}
+.px .p-amt{color:var(--gold);text-shadow:0 0 22px rgba(255,215,0,.45);}
+.p-per{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--muted);padding-bottom:7px;}
+.p-note{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--muted);}
+.p-note strong{color:var(--text);}
+
+.plan-feats{padding:22px 26px 28px;}
+.fg-lbl{
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  margin:14px 0 8px;padding-bottom:5px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.fg-lbl:first-child{margin-top:0;}
+.fi{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;color:#8097b0;line-height:1.5;margin-bottom:7px;}
+.fi.hi{color:var(--text);font-weight:500;}
+.fi.off{color:rgba(255,255,255,.16);}
+.fi.off .fck{color:rgba(255,255,255,.1);}
+.fck{font-size:13px;flex-shrink:0;margin-top:1px;}
+.pb .fck{color:var(--cyan);} .pp .fck{color:var(--violet);} .px .fck{color:var(--gold);}
+
+.plan-cta-btn{
+  margin:0 26px 26px;
+  padding:12px 18px;
+  width:calc(100% - 52px);
+  font-family:'Orbitron',monospace;font-size:11px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  border:none;cursor:pointer;
+  transition:opacity .2s,transform .2s;
+}
+.plan-cta-btn:hover{opacity:.82;transform:scale(.98);}
+.pb .plan-cta-btn{background:rgba(0,245,255,.1);color:var(--cyan);border:1px solid rgba(0,245,255,.3);}
+.pp .plan-cta-btn{background:rgba(191,95,255,.14);color:var(--violet);border:1px solid rgba(191,95,255,.38);}
+.px .plan-cta-btn{background:linear-gradient(135deg,rgba(255,215,0,.18),rgba(255,170,0,.12));color:var(--gold);border:1px solid rgba(255,215,0,.38);}
+
+/* ══════════════════════════════════════════
+   HORARIO
+══════════════════════════════════════════ */
+#horario{background:var(--bg2);border-top:1px solid rgba(0,245,255,.05);border-bottom:1px solid rgba(0,245,255,.05);}
+.sched-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:3px;}
+.sched-cell{padding:20px 22px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);position:relative;}
+.sched-cell::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:var(--cyan);box-shadow:0 0 8px var(--cyan);}
+.sched-cell.wknd::before{background:var(--gold);box-shadow:0 0 8px var(--gold);}
+.s-day{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;letter-spacing:.05em;margin-bottom:5px;color:var(--cyan);}
+.sched-cell.wknd .s-day{color:var(--gold);}
+.s-hrs{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.04em;}
+.s-tag{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.16);margin-top:4px;text-transform:uppercase;}
+
+/* ══════════════════════════════════════════
+   EXTRAS TABLE
+══════════════════════════════════════════ */
+#extras{border-top:1px solid rgba(0,245,255,.05);}
+.ext-table{width:100%;border-collapse:collapse;}
+.ext-table th{
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  padding:10px 16px;text-align:left;
+  border-bottom:1px solid rgba(0,245,255,.07);
+}
+.ext-table td{font-size:13px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.03);vertical-align:top;}
+.ext-table tr:hover td{background:rgba(0,245,255,.02);}
+.e-name{font-weight:500;color:var(--text);}
+.e-desc{font-size:11.5px;color:var(--muted);margin-top:2px;}
+.e-price{font-family:'Orbitron',monospace;font-size:15px;font-weight:700;color:var(--cyan);text-shadow:0 0 10px rgba(0,245,255,.28);white-space:nowrap;}
+.e-note{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);margin-top:2px;letter-spacing:.07em;}
+.etag{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;}
+.t-inc{background:rgba(57,255,20,.07);color:var(--green);border:1px solid rgba(57,255,20,.18);}
+.t-ext{background:rgba(0,245,255,.05);color:var(--cyan);border:1px solid rgba(0,245,255,.14);}
+.t-cot{background:rgba(255,215,0,.06);color:var(--gold);border:1px solid rgba(255,215,0,.18);}
+
+/* ══════════════════════════════════════════
+   COTIZACIÓN FORM
+══════════════════════════════════════════ */
+#cotizacion{background:var(--bg3);border-top:1px solid rgba(0,245,255,.07);}
+.cot-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+.cot-info h3{font-family:'Orbitron',monospace;font-size:clamp(22px,3vw,40px);font-weight:800;line-height:1;margin-bottom:14px;}
+.cot-info h3 span{color:var(--cyan);display:block;text-shadow:0 0 20px rgba(0,245,255,.35);}
+.cot-info p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:24px;}
+.contact-cards{display:flex;flex-direction:column;gap:12px;}
+.cc{display:flex;align-items:center;gap:14px;background:rgba(0,245,255,.04);border:1px solid rgba(0,245,255,.1);padding:13px 18px;}
+.cc-icon{width:38px;height:38px;background:rgba(0,245,255,.08);border:1px solid rgba(0,245,255,.2);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.cc-lbl{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:2px;}
+.cc-val{font-size:13px;font-weight:500;color:var(--text);}
+.cc-val a{color:var(--text);text-decoration:none;}
+.cc-val a:hover{color:var(--cyan);}
+
+/* form */
+.cot-form{display:flex;flex-direction:column;gap:14px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.f-group{display:flex;flex-direction:column;gap:6px;}
+.f-label{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.f-input,.f-select,.f-textarea{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+  color:var(--text);
+  font-family:'Exo 2',sans-serif;font-size:13px;
+  padding:11px 14px;
+  outline:none;
+  transition:border-color .25s;
+  width:100%;
+}
+.f-input:focus,.f-select:focus,.f-textarea:focus{border-color:rgba(0,245,255,.3);}
+.f-select{appearance:none;cursor:pointer;}
+.f-textarea{resize:vertical;min-height:100px;}
+.f-input::placeholder,.f-textarea::placeholder{color:var(--muted);}
+
+.form-submit{
+  font-family:'Orbitron',monospace;font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:14px 28px;
+  background:rgba(0,245,255,.12);
+  border:1px solid rgba(0,245,255,.32);
+  color:var(--cyan);cursor:pointer;
+  transition:background .25s,transform .2s;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+}
+.form-submit:hover{background:rgba(0,245,255,.2);transform:translateY(-2px);}
+.form-msg{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;line-height:1.6;}
+
+@media(max-width:780px){
+  .cot-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+}
+
+/* ══════════════════════════════════════════
+   WHATSAPP FLOATING
+══════════════════════════════════════════ */
+.wa-float{
+  position:fixed;bottom:28px;right:24px;
+  z-index:600;
+  display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+}
+.wa-tooltip{
+  background:rgba(5,8,16,.94);
+  border:1px solid rgba(0,245,255,.14);
+  padding:7px 14px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  letter-spacing:.1em;color:var(--text);
+  white-space:nowrap;
+  opacity:0;transform:translateX(10px);
+  transition:opacity .25s,transform .25s;
+  pointer-events:none;
+}
+.wa-float:hover .wa-tooltip{opacity:1;transform:translateX(0);}
+.wa-btn{
+  width:54px;height:54px;border-radius:50%;
+  background:linear-gradient(135deg,#25d366,#128c3e);
+  border:2px solid rgba(37,211,102,.4);
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;
+  box-shadow:0 0 20px rgba(37,211,102,.35);
+  transition:transform .25s,box-shadow .25s;
+  animation:waPop 1s ease 1.5s both;
+}
+.wa-btn:hover{transform:scale(1.12);box-shadow:0 0 30px rgba(37,211,102,.55);}
+.wa-btn svg{width:28px;height:28px;fill:#fff;}
+@keyframes waPop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+
+/* ══════════════════════════════════════════
+   VCARD SECTION (hidden button in contact)
+══════════════════════════════════════════ */
+.vcard-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Orbitron',monospace;font-size:11px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:12px 22px;
+  background:rgba(57,255,20,.08);
+  border:1px solid rgba(57,255,20,.25);
+  color:var(--green);cursor:pointer;
+  text-decoration:none;
+  transition:background .25s,transform .2s;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+}
+.vcard-btn:hover{background:rgba(57,255,20,.16);transform:translateY(-2px);}
+.vcard-btn svg{width:18px;height:18px;fill:currentColor;}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer{
+  border-top:1px solid rgba(255,255,255,.04);
+  padding:26px 6vw;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:14px;position:relative;z-index:1;
+}
+.f-logo{font-family:'Orbitron',monospace;font-size:15px;font-weight:800;letter-spacing:.07em;}
+.f-logo .fx{color:var(--cyan);text-shadow:0 0 10px rgba(0,245,255,.4);}
+.f-meta{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(255,255,255,.17);letter-spacing:.08em;line-height:1.6;text-align:right;}
+
+/* ══════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* intersection observer fade-in */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:800px){
+  .area-row{grid-template-columns:repeat(2,1fr);}
+  .area-cell{border-right:none;border-bottom:1px solid rgba(0,245,255,.05);}
+  .plans-grid{grid-template-columns:1fr;max-width:480px;}
+}
+@media(max-width:500px){
+  .area-row{grid-template-columns:1fr;}
+  .hero-location{position:static;text-align:left;margin-top:36px;}
+  footer{flex-direction:column;align-items:flex-start;}
+  .f-meta{text-align:left;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="main-nav">
+  <a href="#inicio" class="nav-logo"><span class="nc">TECH</span><span class="nt">SERV MX</span></a>
+  <div class="nav-links">
+    <a href="#inicio"    class="nav-link active">Inicio</a>
+    <a href="#servicios" class="nav-link">Servicios</a>
+    <a href="#planes"    class="nav-link">Planes</a>
+    <a href="#horario"   class="nav-link">Horario</a>
+    <a href="#extras"    class="nav-link">Precios</a>
+    <a href="#cotizacion"class="nav-link">Contacto</a>
+  </div>
+  <button class="nav-burger" id="burger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+  <a href="#inicio"    class="nav-link">Inicio</a>
+  <a href="#servicios" class="nav-link">Servicios</a>
+  <a href="#planes"    class="nav-link">Planes</a>
+  <a href="#horario"   class="nav-link">Horario</a>
+  <a href="#extras"    class="nav-link">Precios</a>
+  <a href="#cotizacion"class="nav-link">Contacto</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="page-section" id="inicio">
+  <div class="orb hero-orb-a"></div>
+  <div class="orb hero-orb-b"></div>
+  <div class="orb hero-orb-c"></div>
+
+  <div class="status-bar">
+    <span class="s-dot"></span>
+    SERVICIOS ACTIVOS — CADEREYTA &amp; JUÁREZ, NL
+  </div>
+
+  <div class="hero-logo">
+    <span class="hl-c">TECH</span><br>
+    <span class="hl-w">SERV <span class="hl-mx">MX</span></span>
+  </div>
+
+  <div class="hero-tag">Tecnología que <em>funciona</em> · Servicio que <em>responde</em></div>
+  <div class="hero-line"></div>
+
+  <p class="hero-desc">
+    Soluciones tecnológicas integrales para <strong>escuelas, empresas y hogares</strong>.
+    Cómputo, seguridad, redes e instalación de audio profesional.
+    Con <strong>factura CFDI</strong> en cada servicio.
+  </p>
+
+  <div class="hero-chips">
+    <span class="chip">Equipos de Cómputo</span>
+    <span class="chip">Impresoras</span>
+    <span class="chip">Cámaras CCTV</span>
+    <span class="chip">Racks &amp; Redes</span>
+    <span class="chip">Audio Profesional</span>
+    <span class="chip">RFC · CFDI</span>
+  </div>
+
+  <div class="hero-ctas">
+    <a href="#planes"     class="btn-primary">Ver Planes</a>
+    <a href="#cotizacion" class="btn-secondary">Solicitar Cotización</a>
+  </div>
+
+  <div class="hero-location">
+    <div class="hl-lbl">// Área de servicio</div>
+    <div class="hl-city">Cadereyta · Juárez</div>
+    <div class="hl-state">Nuevo León · México</div>
+  </div>
+</section>
+
+<!-- ══ SERVICIOS ══ -->
+<section class="page-section" id="servicios">
+  <div class="sec-eyebrow">// Portafolio</div>
+  <div class="sec-title reveal">Servicios</div>
+  <p class="sec-sub reveal">Cobertura técnica completa. Desde el hardware hasta el audio profesional.</p>
+
+  <div class="area-row reveal">
+    <div class="area-cell ac1"><div class="area-num">ÁREA 01</div><div class="area-name">Equipos de Cómputo</div></div>
+    <div class="area-cell ac2"><div class="area-num">ÁREA 02</div><div class="area-name">Seguridad CCTV</div></div>
+    <div class="area-cell ac3"><div class="area-num">ÁREA 03</div><div class="area-name">Redes &amp; Racks</div></div>
+    <div class="area-cell ac4"><div class="area-num">ÁREA 04</div><div class="area-name">Audio Profesional</div></div>
+  </div>
+
+  <div class="srv-grid">
+    <div class="srv-card sc reveal">
+      <span class="sn">01</span><span class="si">🖥️</span>
+      <div class="sa">Cómputo</div>
+      <div class="st">Mantenimiento Preventivo PC</div>
+      <div class="sd">Limpieza profunda y revisión integral para alargar la vida de tu equipo.</div>
+      <div class="sl">
+        <span class="sli">Limpieza interna de polvo</span>
+        <span class="sli">Cambio de pasta térmica</span>
+        <span class="sli">Revisión de ventiladores y conectores</span>
+        <span class="sli">Optimización del sistema operativo</span>
+      </div>
+    </div>
+    <div class="srv-card sc reveal">
+      <span class="sn">02</span><span class="si">💾</span>
+      <div class="sa">Cómputo</div>
+      <div class="st">Migración HDD → SSD</div>
+      <div class="sd">Clonado sin pérdida de datos y hasta 5× más velocidad de arranque.</div>
+      <div class="sl">
+        <span class="sli">Clonado completo de disco</span>
+        <span class="sli">Instalación física del SSD</span>
+        <span class="sli">Verificación de integridad de datos</span>
+      </div>
+    </div>
+    <div class="srv-card sc reveal">
+      <span class="sn">03</span><span class="si">🖨️</span>
+      <div class="sa">Periféricos</div>
+      <div class="st">Mantenimiento de Impresoras</div>
+      <div class="sd">Preventivo y correctivo para equipos de inyección y laser.</div>
+      <div class="sl">
+        <span class="sli">Limpieza de cabezales y rodillos</span>
+        <span class="sli">Diagnóstico de errores y fallas</span>
+        <span class="sli">Cambio de piezas bajo cotización</span>
+      </div>
+    </div>
+    <div class="srv-card sg reveal">
+      <span class="sn">04</span><span class="si">📷</span>
+      <div class="sa">Seguridad</div>
+      <div class="st">CCTV y Cámaras de Seguridad</div>
+      <div class="sd">Instalación, reubicación y mantenimiento de videovigilancia.</div>
+      <div class="sl">
+        <span class="sli">Limpieza de lentes y carcasas</span>
+        <span class="sli">Ajuste de ángulo y enfoque</span>
+        <span class="sli">Revisión de grabación DVR/NVR</span>
+      </div>
+    </div>
+    <div class="srv-card sv reveal">
+      <span class="sn">05</span><span class="si">🗄️</span>
+      <div class="sa">Redes</div>
+      <div class="st">Racks y Distribución de Red</div>
+      <div class="sd">Cableado estructurado para red y circuito cerrado de cámaras.</div>
+      <div class="sl">
+        <span class="sli">Instalación de rack y patch panel</span>
+        <span class="sli">Cableado Cat5e / Cat6</span>
+        <span class="sli">Integración con sistema CCTV</span>
+      </div>
+    </div>
+    <div class="srv-card so reveal">
+      <span class="sn">06</span><span class="si">🎚️</span>
+      <div class="sa">Audio Profesional</div>
+      <div class="st">Instalación de Audio</div>
+      <div class="sd">Desde el primer cable hasta la consola mezcladora. Auditorios y eventos.</div>
+      <div class="sl">
+        <span class="sli">Tendido de cableado de señal y potencia</span>
+        <span class="sli">Instalación de bocinas y amplificadores</span>
+        <span class="sli">Conexión hasta consola mezcladora</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PLANES ══ -->
+<section class="page-section" id="planes">
+  <div class="sec-eyebrow">// Planes Mensuales</div>
+  <div class="sec-title reveal">Elige tu Plan</div>
+  <p class="sec-sub reveal">Contratos mensuales por equipo. Sin permanencia forzada. CFDI incluido.</p>
+
+  <div class="notice-bar reveal">
+    <span>ℹ️</span>
+    <span>Precios por <strong>equipo / mes</strong>. Las piezas de repuesto se cotizan por separado. Descuentos para flotas de +5 equipos.</span>
+  </div>
+
+  <div class="plans-grid">
+
+    <!-- BÁSICO -->
+    <div class="plan pb reveal">
+      <div class="plan-head">
+        <div class="plan-tier">Plan 01</div>
+        <div class="plan-name">BÁSICO</div>
+        <div class="plan-tldr">Preventivo esencial con diagnósticos sin costo adicional.</div>
+        <div class="price-row"><span class="p-cur">$</span><span class="p-amt">250</span><span class="p-per">/ mes · equipo</span></div>
+        <div class="p-note">Pago mensual · <strong>CFDI incluido</strong></div>
+      </div>
+      <div class="plan-feats">
+        <div class="fg-lbl">Mantenimiento</div>
+        <div class="fi hi"><span class="fck">✦</span>1 mantenimiento preventivo al mes</div>
+        <div class="fi"><span class="fck">✦</span>Limpieza interna de polvo</div>
+        <div class="fi"><span class="fck">✦</span>Cambio de pasta térmica</div>
+        <div class="fg-lbl">Diagnósticos</div>
+        <div class="fi hi"><span class="fck">✦</span>Diagnósticos adicionales SIN COSTO</div>
+        <div class="fi"><span class="fck">✦</span>Reporte del estado del equipo</div>
+        <div class="fi"><span class="fck">✦</span>Cotización gratuita de reparaciones</div>
+        <div class="fg-lbl">No incluido</div>
+        <div class="fi off"><span class="fck">✗</span>Mantenimiento de software</div>
+        <div class="fi off"><span class="fck">✗</span>Cambios de SSD / clonados</div>
+        <div class="fi off"><span class="fck">✗</span>Atención prioritaria</div>
+      </div>
+      <button class="plan-cta-btn" onclick="selectPlan('Básico $250/mes')">Contratar Básico</button>
+    </div>
+
+    <!-- PROFESIONAL -->
+    <div class="plan pp reveal">
+      <div class="plan-badge badge-pop">★ Más Popular</div>
+      <div class="plan-head">
+        <div class="plan-tier">Plan 02</div>
+        <div class="plan-name">PROFESIONAL</div>
+        <div class="plan-tldr">Hardware + software optimizado para equipos de trabajo diario.</div>
+        <div class="price-row"><span class="p-cur">$</span><span class="p-amt">450</span><span class="p-per">/ mes · equipo</span></div>
+        <div class="p-note">Pago mensual · <strong>CFDI incluido</strong></div>
+      </div>
+      <div class="plan-feats">
+        <div class="fg-lbl">Todo el Plan Básico más…</div>
+        <div class="fi hi"><span class="fck">✦</span>Mantenimiento de hardware completo</div>
+        <div class="fi"><span class="fck">✦</span>Revisión y ajuste de componentes</div>
+        <div class="fg-lbl">Software</div>
+        <div class="fi hi"><span class="fck">✦</span>Limpieza de archivos basura y temporales</div>
+        <div class="fi"><span class="fck">✦</span>Eliminación de malware y procesos lentos</div>
+        <div class="fi"><span class="fck">✦</span>Configuración para mayor rendimiento</div>
+        <div class="fi"><span class="fck">✦</span>Optimización de inicio y sistema operativo</div>
+        <div class="fg-lbl">No incluido</div>
+        <div class="fi off"><span class="fck">✗</span>Cambios de SSD / clonados</div>
+        <div class="fi off"><span class="fck">✗</span>Atención inmediata prioritaria</div>
+      </div>
+      <button class="plan-cta-btn" onclick="selectPlan('Profesional $450/mes')">Contratar Profesional</button>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="plan px reveal">
+      <div class="plan-badge badge-prem">◈ Premium</div>
+      <div class="plan-head">
+        <div class="plan-tier">Plan 03</div>
+        <div class="plan-name">PREMIUM</div>
+        <div class="plan-tldr">Cobertura máxima con upgrades y atención inmediata toda la semana.</div>
+        <div class="price-row"><span class="p-cur">$</span><span class="p-amt">750</span><span class="p-per">/ mes · equipo</span></div>
+        <div class="p-note">Pago mensual · <strong>CFDI incluido</strong></div>
+      </div>
+      <div class="plan-feats">
+        <div class="fg-lbl">Todo el Plan Profesional más…</div>
+        <div class="fi hi"><span class="fck">✦</span>Hasta 4 cambios de SSD al mes incluidos</div>
+        <div class="fi hi"><span class="fck">✦</span>Hasta 4 clonados de disco al mes</div>
+        <div class="fi"><span class="fck">✦</span>El SSD se cotiza por separado si aplica</div>
+        <div class="fg-lbl">Atención Prioritaria</div>
+        <div class="fi hi"><span class="fck">✦</span>Respuesta inmediata en horario laboral</div>
+        <div class="fi"><span class="fck">✦</span>Lun–Vie: 2:00 pm – 7:00 pm</div>
+        <div class="fi"><span class="fck">✦</span>Sáb–Dom: 9:00 am – 5:00 pm</div>
+        <div class="fg-lbl">Exclusivos Premium</div>
+        <div class="fi"><span class="fck">✦</span>Soporte por WhatsApp incluido</div>
+        <div class="fi"><span class="fck">✦</span>Reporte mensual del estado de equipos</div>
+        <div class="fi"><span class="fck">✦</span>Prioridad en agenda sobre otros clientes</div>
+      </div>
+      <button class="plan-cta-btn" onclick="selectPlan('Premium $750/mes')">Contratar Premium</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HORARIO ══ -->
+<section class="page-section" id="horario">
+  <div class="sec-eyebrow">// Disponibilidad</div>
+  <div class="sec-title reveal">Horario de Atención</div>
+  <p class="sec-sub reveal">Servicio toda la semana. Lunes a viernes a partir de las 2 pm. Fines de semana jornada completa.</p>
+  <div class="sched-grid">
+    <div class="sched-cell reveal"><div class="s-day">Lunes</div><div class="s-hrs">2:00 – 7:00 pm</div><div class="s-tag">Tarde</div></div>
+    <div class="sched-cell reveal"><div class="s-day">Martes</div><div class="s-hrs">2:00 – 7:00 pm</div><div class="s-tag">Tarde</div></div>
+    <div class="sched-cell reveal"><div class="s-day">Miércoles</div><div class="s-hrs">2:00 – 7:00 pm</div><div class="s-tag">Tarde</div></div>
+    <div class="sched-cell reveal"><div class="s-day">Jueves</div><div class="s-hrs">2:00 – 7:00 pm</div><div class="s-tag">Tarde</div></div>
+    <div class="sched-cell reveal"><div class="s-day">Viernes</div><div class="s-hrs">2:00 – 7:00 pm</div><div class="s-tag">Tarde</div></div>
+    <div class="sched-cell wknd reveal"><div class="s-day">Sábado</div><div class="s-hrs">9:00 am – 5:00 pm</div><div class="s-tag">Jornada completa</div></div>
+    <div class="sched-cell wknd reveal"><div class="s-day">Domingo</div><div class="s-hrs">9:00 am – 5:00 pm</div><div class="s-tag">Jornada completa</div></div>
+  </div>
+</section>
+
+<!-- ══ EXTRAS ══ -->
+<section class="page-section" id="extras">
+  <div class="sec-eyebrow">// Sin contrato</div>
+  <div class="sec-title reveal">Precios por Servicio</div>
+  <p class="sec-sub reveal">Sin plan mensual. Pago único por evento. Cotización sin costo previo.</p>
+  <table class="ext-table reveal">
+    <thead>
+      <tr>
+        <th>Servicio</th>
+        <th>Precio</th>
+        <th>Modalidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><div class="e-name">Mantenimiento preventivo PC / Laptop</div><div class="e-desc">Limpieza, pasta térmica, revisión completa</div></td><td><div class="e-price">$300</div><div class="e-note">por equipo</div></td><td><span class="etag t-ext">Servicio suelto</span></td></tr>
+      <tr><td><div class="e-name">Diagnóstico técnico</div><div class="e-desc">Revisión de fallas, reporte y cotización</div></td><td><div class="e-price">$150</div><div class="e-note">a cuenta si contratas el servicio</div></td><td><span class="etag t-ext">Servicio suelto</span></td></tr>
+      <tr><td><div class="e-name">Mantenimiento de impresora</div><div class="e-desc">Limpieza de cabezales, rodillos y diagnóstico</div></td><td><div class="e-price">$280</div><div class="e-note">por equipo</div></td><td><span class="etag t-ext">Servicio suelto</span></td></tr>
+      <tr><td><div class="e-name">Migración HDD → SSD (mano de obra)</div><div class="e-desc">Clonado + instalación. SSD no incluido</div></td><td><div class="e-price">$350</div><div class="e-note">mano de obra</div></td><td><span class="etag t-ext">Servicio suelto</span></td></tr>
+      <tr><td><div class="e-name">Limpieza de software + optimización</div><div class="e-desc">Archivos temporales, inicio, rendimiento general</div></td><td><div class="e-price">$200</div><div class="e-note">por equipo</div></td><td><span class="etag t-ext">Servicio suelto</span></td></tr>
+      <tr><td><div class="e-name">Instalación / reubicación de cámara CCTV</div><div class="e-desc">Montaje, cableado y configuración por cámara</div></td><td><div class="e-price">$400</div><div class="e-note">por cámara · cableado aparte</div></td><td><span class="etag t-cot">Cotización</span></td></tr>
+      <tr><td><div class="e-name">Instalación de rack + distribución de red</div><div class="e-desc">Montaje, patch panel, cableado Cat6</div></td><td><div class="e-price">Desde $800</div><div class="e-note">según alcance del proyecto</div></td><td><span class="etag t-cot">Cotización</span></td></tr>
+      <tr><td><div class="e-name">Instalación de audio profesional</div><div class="e-desc">Cableado, bocinas, amplificadores hasta consola</div></td><td><div class="e-price">Desde $1,200</div><div class="e-note">según dimensiones del espacio</div></td><td><span class="etag t-cot">Cotización</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══ COTIZACIÓN ══ -->
+<section class="page-section" id="cotizacion">
+  <div class="sec-eyebrow">// Contacto</div>
+  <div class="cot-grid">
+    <div class="cot-info reveal">
+      <h3>Solicita tu<span>Cotización</span></h3>
+      <p>Escríbenos por WhatsApp, correo o llena el formulario. Sin compromiso — primero cotizamos, luego decides.</p>
+      <div class="contact-cards">
+        <div class="cc">
+          <div class="cc-icon">📱</div>
+          <div><div class="cc-lbl">WhatsApp / Teléfono</div><div class="cc-val"><a href="https://wa.me/528134206580">81 3420 6580</a></div></div>
+        </div>
+        <div class="cc">
+          <div class="cc-icon">✉️</div>
+          <div><div class="cc-lbl">Correo</div><div class="cc-val"><a href="mailto:tech-serv-mx@hotmail.com">tech-serv-mx@hotmail.com</a></div></div>
+        </div>
+        <div class="cc">
+          <div class="cc-icon">📍</div>
+          <div><div class="cc-lbl">Área de servicio</div><div class="cc-val">Cadereyta &amp; Juárez, NL</div></div>
+        </div>
+      </div>
+      <br>
+      <a class="vcard-btn" href="#" onclick="downloadVCard(); return false;">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/></svg>
+        Guardar Contacto
+      </a>
+    </div>
+
+    <div class="reveal">
+      <form class="cot-form" onsubmit="sendForm(event)">
+        <div class="form-row">
+          <div class="f-group">
+            <label class="f-label">Nombre</label>
+            <input class="f-input" id="f-nombre" type="text" placeholder="Tu nombre" required>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Teléfono</label>
+            <input class="f-input" id="f-tel" type="tel" placeholder="81 0000 0000">
+          </div>
+        </div>
+        <div class="f-group">
+          <label class="f-label">Correo</label>
+          <input class="f-input" id="f-correo" type="email" placeholder="tu@correo.com">
+        </div>
+        <div class="f-group">
+          <label class="f-label">Servicio de interés</label>
+          <select class="f-select" id="f-servicio">
+            <option value="">— Selecciona un servicio —</option>
+            <option>Plan Básico ($250/mes)</option>
+            <option>Plan Profesional ($450/mes)</option>
+            <option>Plan Premium ($750/mes)</option>
+            <option>Mantenimiento preventivo (suelto)</option>
+            <option>Migración HDD → SSD</option>
+            <option>Mantenimiento de impresoras</option>
+            <option>Instalación CCTV</option>
+            <option>Rack / Distribución de red</option>
+            <option>Instalación de audio</option>
+            <option>Otro / No sé aún</option>
+          </select>
+        </div>
+        <div class="f-group">
+          <label class="f-label">Descripción del equipo o proyecto</label>
+          <textarea class="f-textarea" id="f-desc" placeholder="Ej: 5 computadoras de escritorio, las cuales se apagan solas…"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Enviar por WhatsApp →</button>
+        <div class="form-msg" id="form-feedback"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="f-logo"><span class="fx">TECH</span>SERV MX</div>
+  <div class="f-meta">
+    RFC: GOBJ971118D78 · 81 3420 6580 · tech-serv-mx@hotmail.com<br>
+    Cadereyta de Jiménez &amp; Juárez · Nuevo León · México · © 2025
+  </div>
+</footer>
+
+<!-- ══ WHATSAPP FLOAT ══ -->
+<div class="wa-float">
+  <div class="wa-tooltip">Escríbenos ahora</div>
+  <a class="wa-btn" href="https://wa.me/528134206580?text=Hola%2C%20vi%20su%20cat%C3%A1logo%20y%20me%20interesa%20un%20servicio." target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+
+<script>
+/* ── NAV active on scroll ── */
+const sections = document.querySelectorAll('section[id], div[id]');
+const navLinks  = document.querySelectorAll('.nav-link');
+const observer  = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+},{threshold:.3});
+sections.forEach(s=>observer.observe(s));
+
+/* ── Burger menu ── */
+const burger = document.getElementById('burger');
+const mobileNav = document.getElementById('nav-mobile');
+burger.addEventListener('click',()=>{
+  burger.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+});
+mobileNav.querySelectorAll('.nav-link').forEach(l=>{
+  l.addEventListener('click',()=>{ burger.classList.remove('open'); mobileNav.classList.remove('open'); });
+});
+
+/* ── Reveal on scroll ── */
+const reveals = document.querySelectorAll('.reveal');
+const ro = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:.12});
+reveals.forEach(r=>ro.observe(r));
+
+/* ── Plan CTA pre-fill form ── */
+function selectPlan(plan){
+  document.getElementById('f-servicio').value = plan;
+  document.getElementById('cotizacion').scrollIntoView({behavior:'smooth'});
+}
+
+/* ── Form → WhatsApp ── */
+function sendForm(e){
+  e.preventDefault();
+  const nombre   = document.getElementById('f-nombre').value.trim();
+  const tel      = document.getElementById('f-tel').value.trim();
+  const correo   = document.getElementById('f-correo').value.trim();
+  const servicio = document.getElementById('f-servicio').value;
+  const desc     = document.getElementById('f-desc').value.trim();
+  if(!nombre){ document.getElementById('form-feedback').textContent='Por favor ingresa tu nombre.'; return; }
+  const msg = `Hola TechServ MX 👋\n\n*Nombre:* ${nombre}\n*Teléfono:* ${tel||'—'}\n*Correo:* ${correo||'—'}\n*Servicio:* ${servicio||'—'}\n*Descripción:* ${desc||'—'}`;
+  const url = `https://wa.me/528134206580?text=${encodeURIComponent(msg)}`;
+  window.open(url,'_blank');
+  document.getElementById('form-feedback').textContent='✓ Abriendo WhatsApp con tu mensaje…';
+}
+
+/* ── vCard download ── */
+function downloadVCard(){
+  const vcard = [
+    'BEGIN:VCARD','VERSION:3.0',
+    'FN:TechServ MX',
+    'ORG:TechServ MX',
+    'TEL;TYPE=CELL:+528134206580',
+    'EMAIL:tech-serv-mx@hotmail.com',
+    'ADR;TYPE=WORK:;;Cadereyta de Jiménez;Nuevo León;;México',
+    'NOTE:Servicios tecnológicos · RFC: GOBJ971118D78',
+    'END:VCARD'
+  ].join('\n');
+  const blob = new Blob([vcard],{type:'text/vcard'});
+  const a    = document.createElement('a');
+  a.href     = URL.createObjectURL(blob);
+  a.download = 'TechServMX.vcf';
+  a.click();
+}
+</script>
+</body>
+</html>
